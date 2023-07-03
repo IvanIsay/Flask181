@@ -21,7 +21,7 @@ def index():
     CC= mysql.connection.cursor();
     CC.execute('select * from albums')
     conAlbums= CC.fetchall()
-    print(conAlbums)
+    
     return render_template('index.html',listAlbums= conAlbums)
 
 
@@ -46,10 +46,34 @@ def guardar():
 
 
 
+@app.route('/editar/<id>')
+def editar(id):
+    cursoId= mysql.connection.cursor()
+    cursoId.execute('select * from albums where id= %s',(id,))
+    consulId= cursoId.fetchone()
+    print(consulId)
+    return render_template('editarAlbum.html',album = consulId)
+
+@app.route('/actualizar/<id>',methods=['POST'])
+def actualizar(id):
+    
+
+
+
+
+
+
+
+
+
+
 
 @app.route('/eliminar')
 def eliminar():
     return " Se Elimino en la BD" 
+
+
+
 
 
 
