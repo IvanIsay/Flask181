@@ -16,22 +16,28 @@ mysql= MySQL(app)
 # declaracion de rutas
 
 # Ruta principal /  http://localhost:5000
+
 @app.route('/')
 def index():
+    
     CC= mysql.connection.cursor();
     CC.execute('select * from albums')
     conAlbums= CC.fetchall()
     
-    return render_template('index.html',listAlbums= conAlbums)
+    return render_template('index.html')
+
+#return render_template('index.html',listAlbums= conAlbums)
 
 
 # ruta http:localhost:5000/guardar - tipo POST para Insert
 
 @app.route('/guardar',methods=['POST'])
 def guardar():
+    
     if request.method == 'POST':
         
         # pasamos a variables el contenido de los input
+        
         Vtitulo= request.form['txtTitulo']
         Vartista= request.form['txtArtista']
         Vanio= request.form['txtAnio']
@@ -48,10 +54,12 @@ def guardar():
 
 @app.route('/editar/<id>')
 def editar(id):
+    
     cursoId= mysql.connection.cursor()
     cursoId.execute('select * from albums where id= %s',(id,))
     consulId= cursoId.fetchone()
     print(consulId)
+    
     return render_template('editarAlbum.html',album = consulId)
 
 app.route('/actualizar/<id>',methods=['POST'])
