@@ -24,7 +24,7 @@ def index():
     CC.execute('select * from albums')
     conAlbums= CC.fetchall()
     
-    return render_template('index.html')
+    return render_template('index.html',listAlbums= conAlbums)
 
 #return render_template('index.html',listAlbums= conAlbums)
 
